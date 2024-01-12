@@ -1,0 +1,105 @@
+# Ex6
+    A[n]
+    sort(A)
+    for (i = 0 ; i < n ; i++ )
+        if A[i] = i:
+            print(i)
+# Ex7
+    int longestSubstringWithDistinctChars(s, k):
+        distinctCount = 0
+        distinct = array of size 26, initialized to 0
+        maxLength = 0
+        currentLength = 0
+
+        for i from 0 to length(s) - 1:
+            if distinct[s[i] - 'a'] == 0:
+                distinctCount++
+            distinct[s[i] - 'a']++
+
+            while distinctCount > k:
+                distinct[s[currentLength] - 'a']--
+                if distinct[s[currentLength] - 'a'] == 0:
+                    distinctCount--
+                currentLength++
+
+            maxLength = max(maxLength, i - currentLength + 1)
+
+        return maxLength
+
+# Ex8
+    int convert_array_to_balanced_binary_tree(A, n):
+    root = None
+    queue = []
+
+    mid = n // 2
+
+    root = node(A[mid])
+    queue.append(root)
+
+    while queue:
+        node = queue.pop(0)
+
+        if n > 1:
+        left_node = node(A[mid // 2])
+        node.left = left_node
+        queue.append(left_node)
+
+        right_node = node(A[mid // 2 + 1])
+        node.right = right_node
+        queue.append(right_node)
+
+        n = n - 2
+
+    return root
+# Ex9
+    int find_max_satisfaction(int satisfaction[], int num_elements) {
+
+        int max_satisfaction = 0;
+        int rows = sizeof(satisfaction) / sizeof(satisfaction[0]);
+
+        for (int order = 0; order < rows; order++) {
+            int current_satisfaction = 0;
+            for (int i = 1; i <= num_elements; i++) {
+                current_satisfaction += satisfaction[i] * (i);
+                if (current_satisfaction > max_satisfaction) {
+                    max_satisfaction = current_satisfaction;
+                }
+            }
+        }
+
+        return max_satisfaction;
+}
+
+# Ex10
+    void rearrange_string(char *order, char *str, char *new_str) 
+    {
+        int order_length = strlen(order);
+        int str_length = strlen(str);
+        int count[256] = {0};
+
+        for (int i = 0; i < str_length; i++) 
+        {
+            count[(unsigned char)str[i]]++;
+        }
+
+        int index = 0;
+        for (int i = 0; i < order_length; i++) 
+        {
+            for (int j = 0; j < count[(unsigned char)order[i]]; j++) 
+            {
+                new_str[index++] = order[i];
+            }
+        }
+
+        for (int i = 0; i < str_length; i++) {
+            if (strchr(new_str, str[i]) == NULL) 
+            {
+                new_str[index++] = str[i];
+            }
+        }
+
+        new_str[index] = '\0';
+    }
+
+
+
